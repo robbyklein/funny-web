@@ -1,0 +1,31 @@
+.box {
+    background: $white;
+    width: 100%;
+    border-radius: $largeRadius;
+    padding: 30px 25px;
+    box-shadow: $largeShadow;
+
+    &.tiny {
+        max-width: 320px;
+    }
+
+    &.xs {
+        max-width: 400px;
+    }
+
+    &.small {
+        max-width: 500px;
+    }
+
+    &.medium {
+        max-width: 600px;
+    }
+
+    &.large {
+        max-width: 700px;
+    }
+
+    &.xlarge {
+        max-width: 800px;
+    }
+}

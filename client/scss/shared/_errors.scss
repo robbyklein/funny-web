@@ -1,0 +1,18 @@
+.errors {
+    background: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebcccc;
+    padding: 15px;
+    border-radius: $radius;
+    margin: 15px 0;
+
+    li {
+        list-style: disc;
+        list-style-position: inside;
+        font-size: 12px;
+    }
+
+    li + li {
+        margin-top: 5px;
+    }
+}

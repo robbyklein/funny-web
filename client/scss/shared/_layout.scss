@@ -1,0 +1,17 @@
+.sidebar + .main {
+    padding-top: 112px;
+
+    @media (min-width: $mediumbp) {
+        height: 100vh;
+    }
+    
+    @media (min-width: $largebp) {
+        padding-left: 220px;
+        padding-top: 66px;
+    }
+}
+
+.main {
+    overflow-x: hidden;
+    max-width: 100vw;
+}

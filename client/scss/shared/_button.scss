@@ -1,0 +1,74 @@
+.button {
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 25px;
+    border-radius: $radius;
+    background-color: $black;
+    color: $white;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: $font2;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.2s background-color;
+
+    &:hover {
+        background-color: $blackHover;
+    }
+
+    &.icon-button {
+        padding: 0 7px 1px;
+        line-height: 28px;
+
+        @media (min-width: $tinybp) {
+            padding: 0 10px;
+            line-height: 36px;
+        }
+    }
+
+    &.icon-right {
+        i {
+            margin-left: 20px;
+        }
+    }
+
+    &.xs {
+        padding: 0 10px;
+        line-height: 32px;
+        font-size: 12px;
+
+        @media (min-width: $largebp) {
+            font-size: 13px;
+            line-height: 38px;
+            padding: 0 15px;
+        }
+    }
+
+    &.small {
+        font-size: 13px;
+        line-height: 42px;
+        padding: 0 18px;
+    }
+
+    &.green {
+        background-color: $green;
+
+        &:hover {
+            background-color: $greenHover;
+        }
+    }
+
+    &.red {
+        background-color: $red;
+
+        &:hover {
+            background-color: $redHover;
+        }
+    }
+
+    &.full {
+        display: block;
+        width: 100%;
+    }
+}

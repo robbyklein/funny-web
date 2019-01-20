@@ -1,0 +1,81 @@
+.auth-page {
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+        display: block;
+        width: 160px;
+        margin: 0 auto 25px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: $black;
+    }
+
+    h2 {
+        font-size: 19px;
+        text-align: center;
+    }
+
+    h2 + p {
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    p + form {
+        margin-top: 15px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    h2 + form {
+        margin-top: 15px;
+    }
+
+    .main {
+        width: 100%;
+        padding: 40px 20px;
+        left: 0;
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &.signup .main {
+        position: static;
+        transform: none;
+
+        @media (min-height: 600px) {
+            position: fixed;
+            transform: translateY(-50%);
+
+        }
+    }
+
+    .box {
+        margin: 0 auto;
+    }
+}
+
+.auth-bottom {
+    font-size: 12px;
+    margin-top: 15px;
+    text-align: center;
+
+    li + li {
+        margin-top: 5px;
+    }
+
+    a {
+        color: $gray;
+
+        &:hover {
+            color: $black;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.header {
+    background: $white;
+    align-items: center;
+    display: flex;
+    height: 56px;
+    top: 56px;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    border-bottom: 1px solid $border;
+    padding: 0 20px;
+
+    @media (min-width: $largebp) {
+        height: 66px;
+        top: 0;
+        padding-left: 240px;
+    }
+
+    .left,
+    .right {
+        display: flex;
+        align-items: center;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+
+    h2 {
+        font-size: 16px;
+
+        @media (min-width: $mediumbp) {
+            font-size: 18px;
+        }
+    }
+}

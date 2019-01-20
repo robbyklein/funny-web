@@ -1,0 +1,82 @@
+.field {
+    & + & {
+        margin-top: 12px;
+    }
+
+    label {
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: $gray;
+        display: inline-block;
+        margin-bottom: 3px;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='search'],
+    textarea,
+    select {
+        background: $white;
+        border-radius: $radius;
+        border: 1px solid $formBorder;
+        padding: 0 15px;
+        line-height: 50px;
+        
+        &:focus {
+            border-color: $formBorderFocus;
+        }
+
+        &::placeholder {
+            color: $gray;
+        }
+    }
+
+    textarea {
+        padding: 15px;
+    }
+}
+
+.field.image {
+    display: flex;
+    align-items: center;
+
+    .thumbnail {
+        position: relative;
+        overflow: hidden;
+        border-radius: $radius;
+        width: 40px;
+        height: 40px;
+        background: #eee;
+    }
+
+    .thumbnail img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+
+    .thumbnail button {
+        display: none;
+    }
+
+    .thumbnail img + button {
+        display: block;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $red;
+        color: white;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        line-height: 40px;
+        transition: 0.2s opacity;
+    
+        &:hover {
+            opacity: 1;
+        }
+    }   
+}
