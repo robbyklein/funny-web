@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     )
 
     User.associate = function(models) {
+        User.hasMany(models.Item)
     }
 
     User.hook('beforeCreate', async (user, options) => {
