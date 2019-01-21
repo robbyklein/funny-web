@@ -11,10 +11,6 @@ require('./config/passport')
 module.exports = function(app) {
     // Auth
     app.post('/api/login', reqLogin, auth.login)
-    app.post('/api/signup', authVal.signup, auth.signup)
-    app.post('/api/forgot', auth.forgot)
-    app.post('/api/reset', authVal.reset, auth.reset)
-    app.get('/api/activate/:confirmToken', auth.activate)
 
     // Catch all
     app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname + '/index.html')) })
