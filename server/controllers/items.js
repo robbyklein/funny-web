@@ -1,6 +1,5 @@
 const { Item } = require('../models')
 
-
 exports.index = async (req, res) => {
     // Extract page from request url
     const { page } = req.query
@@ -20,8 +19,17 @@ exports.index = async (req, res) => {
     // Does another page exist?
     const hasNext = items.count - (offset + limit) > 0 ? true : false
 
-    res.send({
-        items: items.rows,
-        hasNext,
-    })
+    // Send back data
+    res.send({ items: items.rows, hasNext })
+}
+
+exports.show = async (req, res) => {
+    // Extract id from request url
+    const { id } = req.query
+
+    // Fetch the item
+    const item = await Item.findOne({ where: { id } })
+
+    // Send back item
+    res.send({ item })
 }
