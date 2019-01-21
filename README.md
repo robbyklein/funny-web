@@ -18,3 +18,9 @@ sequelize db:create
 sequelize db:migrate
 sequelize db:seeds:all
 ```
+
+## Development
+
+```
+npm run dev
+```
