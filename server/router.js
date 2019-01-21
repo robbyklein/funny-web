@@ -15,6 +15,8 @@ module.exports = function(app) {
 
     // Items
     app.get('/api/items', items.index)
+    app.get('/api/item', items.show)
+    app.post('/api/items', reqJwt, items.create)
 
     // Catch all
     app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname + '/index.html')) })

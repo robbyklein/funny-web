@@ -33,3 +33,17 @@ exports.show = async (req, res) => {
     // Send back item
     res.send({ item })
 }
+
+exports.create = async (req, res) => {
+    // Extract attributes from body
+    const { tags } = req.body
+
+    // Extract UserId from body
+    const UserId = req.user.id
+
+    // Create the Item
+    const item = await Item.create({ tags, UserId })
+
+    // Send back newly created item
+    res.send({ item })
+}
