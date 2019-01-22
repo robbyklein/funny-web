@@ -2,7 +2,7 @@ const { Item } = require('../models')
 
 exports.index = async (req, res) => {
     // Extract page from request url
-    const { page } = req.query
+    const { page } = req.params
 
     // Paginate by 50
     const limit = 50
@@ -25,7 +25,9 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
     // Extract id from request url
-    const { id } = req.query
+    const { id } = req.params
+
+    console.log(id)
 
     // Fetch the item
     const item = await Item.findOne({ where: { id } })
@@ -46,4 +48,18 @@ exports.create = async (req, res) => {
 
     // Send back newly created item
     res.send({ item })
+}
+
+exports.delete = async (req, res) => {
+    // Extract id from url
+    const { id } = req.params
+
+    // Extract UserId from body
+    const UserId = req.user.id
+
+    // Destroy Item
+    await Item.destroy({ where: {UserId, id} })
+
+    // Send back sucess
+    res.send({ success: "Item successfully deleted." })
 }
