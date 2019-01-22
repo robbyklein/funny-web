@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         'Item',
         {
             tags: DataTypes.JSON,
+            published: DataTypes.DATE,
             UserId: DataTypes.INTEGER,
         },
         {}
