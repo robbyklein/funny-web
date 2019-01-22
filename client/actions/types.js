@@ -11,3 +11,6 @@ export const CLEAR_ERRORS = 'clear_errors'
 // Flash Messaging
 export const SET_FLASH = 'set_flash'
 export const CLEAR_FLASH = 'clear_flash'
+
+// Items
+export const FETCH_ITEMS = 'fetch_items'

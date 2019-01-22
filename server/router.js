@@ -15,6 +15,7 @@ module.exports = function(app) {
 
     // Items
     app.get('/api/items', items.index)
+    app.get('/api/admin/items', reqJwt, items.index)
     app.get('/api/items/:id', items.show)
     app.post('/api/items', reqJwt, items.create)
     app.delete('/api/items/:id', reqJwt, items.delete)
