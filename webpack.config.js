@@ -2,10 +2,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     mode: 'development',
-    entry: ['@babel/polyfill', './client/index.js'],
+    entry: {
+        admin: ['@babel/polyfill', './client/admin.js'],
+        scripts: ['@babel/polyfill', './client/scripts.js']
+    },
     output: {
         path: __dirname + '/server/public',
-        filename: 'scripts.js',
+        filename: '[name].js',
     },
     module: {
         rules: [
@@ -19,5 +22,5 @@ module.exports = {
             },
         ],
     },
-    plugins: [new ExtractTextPlugin('style.css')],
+    plugins: [new ExtractTextPlugin('[name].css')],
 }

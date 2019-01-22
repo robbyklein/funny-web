@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk'
 import { routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
 
-import './scss/style.scss'
+import './scss/admin.scss'
 import reducers from './reducers'
 import App from './components/app'
 import { decodeToken } from './helpers'

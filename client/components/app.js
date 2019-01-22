@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
-import { history } from '../index'
+import { history } from '../admin'
 
 import { Home } from './home'
 import { Login, Logout, RequireAuth } from './auth'

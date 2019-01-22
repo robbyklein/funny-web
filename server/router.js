@@ -1,12 +1,17 @@
+// Dependencies
 const passport = require('passport')
 const path = require('path')
 
+// Controllers
 const auth = require('./controllers/auth')
 const items = require('./controllers/items')
+const pages = require('./controllers/pages')
 
+// Auth Middleware
 const reqJwt = passport.authenticate('jwt', { session: false })
 const reqLogin = passport.authenticate('local', { session: false })
 
+// Setup passport
 require('./config/passport')
 
 module.exports = function(app) {
@@ -20,6 +25,9 @@ module.exports = function(app) {
     app.post('/api/items', reqJwt, items.create)
     app.delete('/api/items/:id', reqJwt, items.delete)
 
-    // Catch all
-    app.get('*', (req, res) => { res.sendFile(path.resolve(__dirname + '/index.html')) })
+    // Pages
+    app.get('/', pages.index)
+
+    // Catch Admin Routes
+    app.get('/admin*', (req, res) => res.render('admin'))
 }

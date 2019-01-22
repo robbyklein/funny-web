@@ -20,7 +20,7 @@ export const fetchItems = () => {
             // Put it in state
             dispatch({
                 type: FETCH_ITEMS,
-                payload: { items, ids, hasNext }
+                payload: { items, ids, hasNext },
             })
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
