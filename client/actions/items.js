@@ -1,11 +1,11 @@
 import axios from './axios'
 import _ from 'lodash'
 
+import {setErrors} from './errors'
 import { FETCH_ITEMS } from './types'
 
-export const fetchItems = () => {
-    return async function(dispatch, getState) {
-        const { page } = getState().items
+export const fetchItems = (page = 1) => {
+    return async function(dispatch) {
         const url = `/admin/items?page=${page}`
 
         try {
@@ -14,13 +14,12 @@ export const fetchItems = () => {
 
             // Process data
             const items = _.mapKeys(res.data.items, 'id')
-            const ids = _.map(res.data.items, 'id')
-            const { hasNext } = res.data
+            const { pages } = res.data
 
             // Put it in state
             dispatch({
                 type: FETCH_ITEMS,
-                payload: { items, ids, hasNext },
+                payload: { items, pages },
             })
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))

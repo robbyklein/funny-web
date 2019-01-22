@@ -5,8 +5,8 @@ import { history } from '../admin'
 
 import { Home } from './home'
 import { Login, Logout, RequireAuth } from './auth'
-import { Admin } from './admin'
-import { AdminItems } from './adminItems'
+import { Dashboard } from './dashboard'
+import { ItemsIndex } from './items'
 
 export default class App extends Component {
     render() {
@@ -21,8 +21,10 @@ export default class App extends Component {
                     <Route exact path="/logout" component={Logout} />
 
                     {/* Admin */}
-                    <Route exact path="/admin" component={RequireAuth(Admin)} />
-                    <Route exact path="/admin/items" component={RequireAuth(AdminItems)} />
+                    <Route exact path="/admin" component={RequireAuth(Dashboard)} />
+                    <Route exact path="/admin/items" component={RequireAuth(ItemsIndex)} />
+                    <Route exact path="/admin/items/:id" component={RequireAuth(ItemsIndex)} />
+
 
                 </Switch>
             </ConnectedRouter>

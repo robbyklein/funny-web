@@ -4,14 +4,17 @@ import { connect } from 'react-redux'
 import { Layout, Header } from '../shared'
 import { fetchItems } from '../../actions/items'
 
-class AdminItems extends Component {
+class ItemsIndex extends Component {
     componentDidMount() {
-        const { ids, fetchItems } = this.props
-        if (!ids.length) fetchItems()
+        const { items, fetchItems } = this.props
+        if (!items) fetchItems()
     }
 
     renderItems() {
         const { items } = this.props
+
+        console.log(items)
+
         if (!items) return ''
 
         return _.map(items, item => {
@@ -40,12 +43,12 @@ class AdminItems extends Component {
 
 function mapStateToProps({ items }) {
     return {
-        items: items.data,
-        ids: items.ids
+        items: items.items,
+        pages: items.pages
     }
 }
 
 export default connect(
     mapStateToProps,
     { fetchItems }
-)(AdminItems)
+)(ItemsIndex)

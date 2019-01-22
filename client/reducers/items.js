@@ -1,10 +1,8 @@
 import { FETCH_ITEMS } from '../actions/types'
 
 const defaultState = {
-    hasNext: true,
-    page: 1,
-    data: {},
-    ids: []
+    pages: 1,
+    items: false,
 }
 
 export default function(state = defaultState, action) {
@@ -12,9 +10,8 @@ export default function(state = defaultState, action) {
         case FETCH_ITEMS:
             return {
                 ...state,
-                data: action.payload.items,
-                ids: action.payload.ids,
-                hasNext: action.payload.hasNext
+                items: action.payload.items,
+                pages: action.payload.pages
             }
         default:
             return state

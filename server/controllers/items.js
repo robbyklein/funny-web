@@ -20,10 +20,10 @@ exports.index = async (req, res) => {
     const items = await Item.findAndCountAll({ limit, offset, order, where })
 
     // Does another page exist?
-    const hasNext = items.count - (offset + limit) > 0 ? true : false
+    const pages = Math.ceil(items.count / limit)
 
     // Send back data
-    res.send({ items: items.rows, hasNext })
+    res.send({ items: items.rows, pages })
 }
 
 exports.show = async (req, res) => {
