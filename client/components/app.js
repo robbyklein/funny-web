@@ -13,12 +13,9 @@ export default class App extends Component {
         return (
             <ConnectedRouter history={history}>
                 <Switch>
-                    {/* Pages */}
-                    <Route exact path="/" component={Home} />
-
                     {/* Authentication */}
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/logout" component={Logout} />
+                    <Route exact path="/admin/login" component={Login} />
+                    <Route exact path="/admin/logout" component={Logout} />
 
                     {/* Admin */}
                     <Route exact path="/admin" component={RequireAuth(Dashboard)} />

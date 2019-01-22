@@ -8,7 +8,7 @@ export default ChildComponent => {
             const { auth, push } = this.props
 
             if (!auth) {
-                push('/login')
+                push('/admin/login')
             }
         }
 

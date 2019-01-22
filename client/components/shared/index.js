@@ -6,6 +6,7 @@ import Button from './button'
 import Errors from './errors'
 import Flash from './flash'
 import Header from './header'
+import Section from './section'
 
 export {
     Layout,
@@ -15,5 +16,6 @@ export {
     Button,
     Errors,
     Flash,
-    Header
+    Header,
+    Section
 }

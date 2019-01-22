@@ -6,7 +6,7 @@ export default ChildComponent => {
     class ComposedComponent extends Component {
         shouldNavigateAway() {
             const { auth, role, push } = this.props
-            if (!auth || role < 99) push('/login')
+            if (!auth || role < 99) push('/admin/login')
         }
 
         // Our component just got rendered

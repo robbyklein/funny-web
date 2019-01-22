@@ -22,7 +22,7 @@ class Login extends Component {
                 <Link to="/" className="logo">
                     <Logo />
                 </Link>
-                <Box size="tiny">
+                <Box className="tiny">
                     <h2>Welcome back</h2>
                     <Errors />
                     <form onSubmit={this.handleSubmit}>

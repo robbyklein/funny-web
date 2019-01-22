@@ -1,20 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import queryString from 'query-string'
 
-import { Layout, Header } from '../shared'
+import { Layout, Header, Box, Section } from '../shared'
+import { Pagination } from './'
 import { fetchItems } from '../../actions/items'
 
 class ItemsIndex extends Component {
     componentDidMount() {
-        const { items, fetchItems } = this.props
-        if (!items) fetchItems()
+        const { items, fetchItems, query } = this.props
+        const { page } = queryString.parse(query)
+
+        if (!items) fetchItems(page)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const refetch = nextProps.query !== this.props.query
+        
+        if (refetch) {
+            const { page } = queryString.parse(nextProps.query)
+            nextProps.fetchItems(page)
+        }
     }
 
     renderItems() {
         const { items } = this.props
-
-        console.log(items)
-
         if (!items) return ''
 
         return _.map(items, item => {
@@ -35,16 +45,21 @@ class ItemsIndex extends Component {
                     <h2>Items</h2>
                 </Header>
 
-                {this.renderItems()}
+                <Section>
+                    <Box>{this.renderItems()}</Box>
+
+                    <Pagination />
+                </Section>
             </Layout>
         )
     }
 }
 
-function mapStateToProps({ items }) {
+function mapStateToProps({ items, router }) {
     return {
         items: items.items,
-        pages: items.pages
+        pages: items.pages,
+        query: router.location.search,
     }
 }
 
