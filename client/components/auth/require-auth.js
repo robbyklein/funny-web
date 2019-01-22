@@ -5,9 +5,9 @@ import { push } from 'connected-react-router'
 export default ChildComponent => {
     class ComposedComponent extends Component {
         shouldNavigateAway() {
-            const { auth_token, push } = this.props
+            const { auth, push } = this.props
 
-            if (!auth_token) {
+            if (!auth) {
                 push('/login')
             }
         }
@@ -27,8 +27,8 @@ export default ChildComponent => {
         }
     }
 
-    function mapStateToProps({ auth: { auth_token } }) {
-        return { auth_token }
+    function mapStateToProps({ auth: { auth } }) {
+        return { auth }
     }
 
     return connect(mapStateToProps, { push })(ComposedComponent)

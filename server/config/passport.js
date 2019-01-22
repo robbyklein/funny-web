@@ -28,7 +28,7 @@ passport.use(localLogin)
 
 // JWT
 const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromHeader('auth_token'),
+    jwtFromRequest: ExtractJwt.fromHeader('auth'),
     secretOrKey,
 }
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {

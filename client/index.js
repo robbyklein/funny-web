@@ -13,7 +13,7 @@ import { decodeToken } from './helpers'
 
 window['__react-beautiful-dnd-disable-dev-warnings'] = true
 
-const token = localStorage.getItem('auth_token')
+const token = localStorage.getItem('auth')
 
 let preloadedState = {
     auth: {},

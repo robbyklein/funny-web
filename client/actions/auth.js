@@ -9,12 +9,12 @@ export const loginUser = (email, password) => {
     return async function(dispatch) {
         try {
             const res = await axios.post('/login', { email, password })
-            const { auth_token } = res.data
+            const { auth } = res.data
 
-            localStorage.setItem('auth_token', auth_token)
-            axios.defaults.headers['auth_token'] = auth_token
+            localStorage.setItem('auth', auth)
+            axios.defaults.headers['auth'] = auth
 
-            dispatch({ type: LOGIN, payload: decodeToken(auth_token) })
+            dispatch({ type: LOGIN, payload: decodeToken(auth) })
             dispatch(push('/admin'))
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
@@ -24,8 +24,8 @@ export const loginUser = (email, password) => {
 
 export const logoutUser = () => {
     return async function(dispatch) {
-        localStorage.removeItem('auth_token')
-        axios.defaults.headers['auth_token'] = null
+        localStorage.removeItem('auth')
+        axios.defaults.headers['auth'] = null
 
         dispatch({ type: LOGOUT })
         dispatch(push('/login'))

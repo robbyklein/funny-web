@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode'
 
-export default auth_token => {
-    const decoded = jwtDecode(auth_token)
+export default auth => {
+    const decoded = jwtDecode(auth)
 
     return {
-        auth_token,
+        auth,
         role: decoded.sub.role,
         name: decoded.sub.name,
         email: decoded.sub.email,

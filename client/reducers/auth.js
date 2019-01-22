@@ -22,7 +22,7 @@ export default function(state = defaultState, action) {
         case LOGIN:
             return {
                 ...state,
-                auth_token: action.payload.auth_token,
+                auth: action.payload.auth,
                 role: action.payload.role,
                 name: action.payload.name,
                 email: action.payload.email,
