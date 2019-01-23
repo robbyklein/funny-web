@@ -22,7 +22,10 @@ module.exports = function(app) {
     app.get('/api/items', items.index)
     app.get('/api/admin/items', reqJwt, items.index)
     app.get('/api/items/:id', items.show)
+    app.get('/api/admin/items/:id', reqJwt, items.show)
+
     app.post('/api/items', reqJwt, items.create)
+    app.put('/api/items/:id', reqJwt, items.edit)
     app.delete('/api/items/:id', reqJwt, items.delete)
 
     // Pages

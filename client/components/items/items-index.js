@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
 
 import { Layout, Header, Box, Section, Table, Row, Cell } from '../shared'
 import { Pagination } from './'
@@ -12,7 +13,7 @@ class ItemsIndex extends Component {
         const { items, fetchItems, query } = this.props
         const { page } = queryString.parse(query)
 
-        if (!items) fetchItems(page)
+        if (_.isEmpty(items)) fetchItems(page)
     }
 
     componentWillReceiveProps(nextProps) {

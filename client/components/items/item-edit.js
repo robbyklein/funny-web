@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import { Layout, Header, Box, Section, Field } from '../shared'
-import { setItemTags, createItem } from '../../actions/items'
-import { ItemForm } from './';
+import { Layout, Header, Box, Section } from '../shared'
+import { ItemForm } from './'
+import { editItem } from '../../actions/items'
 
-export class ItemCreate extends Component {
-    handleSubmit = (e) => {
+export class ItemEdit extends Component {
+    handleSubmit = e => {
         e.preventDefault()
-        this.props.createItem()
+        const {match, editItem} = this.props
+        editItem(match.params.id)
     }
 
     render() {
@@ -16,11 +18,8 @@ export class ItemCreate extends Component {
             <form onSubmit={this.handleSubmit}>
                 <Layout className="admin" sidebar={true}>
                     <Header>
-                        <h2>New Item</h2>
-                        <button
-                            type="submit"
-                            className="button xs right"
-                        >
+                        <h2>Edit Item</h2>
+                        <button type="submit" className="button xs right">
                             Save
                         </button>
                     </Header>
@@ -36,7 +35,9 @@ export class ItemCreate extends Component {
     }
 }
 
-export default connect(
-    null,
-    { createItem }
-)(ItemCreate)
+export default withRouter(
+    connect(
+        null,
+        { editItem }
+    )(ItemEdit)
+)

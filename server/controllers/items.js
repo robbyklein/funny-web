@@ -30,8 +30,11 @@ exports.show = async (req, res) => {
     // Extract id from request url
     const { id } = req.params
 
+    // If user allow unpublished
+    const where = req.user ? { id } : { id, published: { $lt: new Date() } }
+
     // Fetch the item
-    const item = await Item.findOne({ where: { id } })
+    const item = await Item.findOne({ where })
 
     // Send back item
     res.send({ item })
@@ -46,6 +49,23 @@ exports.create = async (req, res) => {
 
     // Create the Item
     const item = await Item.create({ tags, UserId })
+
+    // Send back newly created item
+    res.send({ item })
+}
+
+exports.edit = async (req, res) => {
+    // Extract attributes from body
+    const { tags } = req.body
+    const { id } = req.params
+
+    // Extract UserId from body
+    const UserId = req.user.id
+
+    // Find the Item
+    const item = await Item.find({ where: { UserId, id } })
+    
+    item.update({ tags })
 
     // Send back newly created item
     res.send({ item })
