@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
+import { Link } from 'react-router-dom'
 
 import { Layout, Header, Box, Section } from '../shared'
 import { Pagination } from './'
@@ -43,6 +44,7 @@ class ItemsIndex extends Component {
             <Layout className="admin" sidebar={true}>
                 <Header>
                     <h2>Items</h2>
+                    <Link className="button xs right" to="/admin/items/new">New Item</Link>
                 </Header>
 
                 <Section>

@@ -14,3 +14,4 @@ export const CLEAR_FLASH = 'clear_flash'
 
 // Items
 export const FETCH_ITEMS = 'fetch_items'
+export const SET_ITEM_TAGS = 'set_item_tags'
