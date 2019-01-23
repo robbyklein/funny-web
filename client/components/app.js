@@ -19,6 +19,7 @@ export default class App extends Component {
                     {/* Admin */}
                     <Route exact path="/admin" component={RequireAuth(Dashboard)} />
                     <Route exact path="/admin/items" component={RequireAuth(ItemsIndex)} />
+                    <Route exact path="/admin/items/page/:page" component={RequireAuth(ItemsIndex)} />
                     <Route exact path="/admin/items/new" component={RequireAuth(ItemCreate)} />
                     <Route exact path="/admin/items/:id" component={RequireAuth(ItemEdit)} />
 

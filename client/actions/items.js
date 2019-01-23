@@ -6,7 +6,7 @@ import { FETCH_ITEMS, FETCH_ITEM, SET_ITEM_TAGS } from './types'
 
 export const fetchItems = (page = 1) => {
     return async function(dispatch) {
-        const url = `/admin/items?page=${page}`
+        const url = `/admin-items?page=${page}`
 
         try {
             // Fetch items
@@ -29,7 +29,7 @@ export const fetchItems = (page = 1) => {
 
 export const fetchItem = (id) => {
     return async function(dispatch) {
-        const url = `/admin/items/${id}`
+        const url = `/admin-items/${id}`
 
         try {
             // Fetch items

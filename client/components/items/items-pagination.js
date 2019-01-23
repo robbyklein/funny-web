@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 
-export class Pagination extends Component {
+export class ItemsPagination extends Component {
     renderNext() {
         const { page, pages } = this.props
         if (page === pages) return ''
 
-        const url = `/admin/items?page=${page + 1}`
+        const url = `/admin/items/page/${page + 1}`
 
         return (
             <li className="next">
@@ -21,7 +21,7 @@ export class Pagination extends Component {
         const { page, pages } = this.props
         if (page === 1) return ''
 
-        const url = `/admin/items?page=${page - 1}`
+        const url = `/admin/items/page/${page - 1}`
 
         return (
             <li>
@@ -42,9 +42,9 @@ export class Pagination extends Component {
     }
 }
 
-function mapStateToProps({ items, router }) {
-    const page = queryString.parse(router.location.search).page || 1
-    return { pages: items.pages, page: Number(page) }
+function mapStateToProps({ items }, { match }) {
+    const page = Number(match.params.page) || 1
+    return { pages: items.pages, page }
 }
 
-export default connect(mapStateToProps)(Pagination)
+export default withRouter(connect(mapStateToProps)(ItemsPagination))

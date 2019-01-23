@@ -1,28 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import queryString from 'query-string'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import _ from 'lodash'
 
 import { Layout, Header, Box, Section, Table, Row, Cell } from '../shared'
-import { Pagination } from './'
+import { ItemsPagination } from './'
 import { fetchItems } from '../../actions/items'
 
 class ItemsIndex extends Component {
     componentDidMount() {
-        const { items, fetchItems, query } = this.props
-        const { page } = queryString.parse(query)
-
+        const { items, fetchItems, page } = this.props
         if (_.isEmpty(items)) fetchItems(page)
     }
 
     componentWillReceiveProps(nextProps) {
-        const refetch = nextProps.query !== this.props.query
-
-        if (refetch) {
-            const { page } = queryString.parse(nextProps.query)
-            nextProps.fetchItems(page)
-        }
+        const refetch = nextProps.page !== this.props.page
+        if (refetch)  nextProps.fetchItems(nextProps.page)
     }
 
     renderItems() {
@@ -66,22 +59,26 @@ class ItemsIndex extends Component {
                         </Table>
                     </Box>
 
-                    <Pagination />
+                    <ItemsPagination />
                 </Section>
             </Layout>
         )
     }
 }
 
-function mapStateToProps({ items, router }) {
+function mapStateToProps({ items }, { match }) {
+    const { page } = match.params
+
     return {
         items: items.items,
         pages: items.pages,
-        query: router.location.search,
+        page,
     }
 }
 
-export default connect(
-    mapStateToProps,
-    { fetchItems }
-)(ItemsIndex)
+export default withRouter(
+    connect(
+        mapStateToProps,
+        { fetchItems }
+    )(ItemsIndex)
+)
