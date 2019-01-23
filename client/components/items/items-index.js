@@ -10,7 +10,13 @@ import { fetchItems } from '../../actions/items'
 class ItemsIndex extends Component {
     componentDidMount() {
         const { items, fetchItems, page } = this.props
-        if (_.isEmpty(items)) fetchItems(page)
+
+        
+
+        if (_.isEmpty(items)) {
+            console.log("fetching")
+            fetchItems(page)
+        }
     }
 
     componentWillReceiveProps(nextProps) {

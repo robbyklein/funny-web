@@ -63,11 +63,12 @@ exports.edit = async (req, res) => {
     const UserId = req.user.id
 
     // Find the Item
-    const item = await Item.find({ where: { UserId, id, published } })
+    const item = await Item.find({ where: { UserId, id } })
     
-    item.update({ tags })
+    // Update it
+    await item.update({ tags, published })
 
-    // Send back newly created item
+    // Send it back
     res.send({ item })
 }
 

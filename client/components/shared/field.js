@@ -41,6 +41,7 @@ export default class Field extends Component {
                         onChange={this.onChange}
                         type="checkbox"
                         value={value}
+                        checked={value}
                     />
                     {!label ? '' : <label htmlFor={id}>{label}</label>}
                 </div>

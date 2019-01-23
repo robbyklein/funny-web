@@ -60,7 +60,7 @@ export const createItem = () => {
 
         try {
             // POST item to server
-            const res = await axios.post('/items', { tags, published })
+            await axios.post('/items', { tags, published })
 
             // Redirect to index
             dispatch(push('/admin/items'))
@@ -72,8 +72,14 @@ export const createItem = () => {
 
 export const editItem = id => {
     return async function(dispatch, getState) {
+        const {
+            items,
+            items: { published },
+        } = getState()
+
+
         // Comma separated
-        const tagsString = getState().items.tags
+        const tagsString = items.tags
         const tags = tagsString
             .trim()
             .replace(/ +(?= )/g, '')
@@ -81,7 +87,7 @@ export const editItem = id => {
 
         try {
             // Update item
-            const res = await axios.put(`/items/${id}`, { tags })
+            const res = await axios.put(`/items/${id}`, { tags, published })
 
             // Redirect to index
             dispatch(push('/admin/items'))
