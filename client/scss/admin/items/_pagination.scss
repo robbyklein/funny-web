@@ -1,0 +1,21 @@
+.pagination {
+    display: flex;
+    margin-top: 20px;
+
+    li.next {
+        margin-left: auto;
+    }
+
+    a {
+        display: block;
+        background: $white;
+        color: $red;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        padding: 10px 18px;
+        text-transform: uppercase;
+        border-radius: $radius;
+        box-shadow: $shadow;
+    }
+}

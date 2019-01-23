@@ -7,6 +7,9 @@ import Errors from './errors'
 import Flash from './flash'
 import Header from './header'
 import Section from './section'
+import Table from './table'
+import Row from './row'
+import Cell from './cell'
 
 export {
     Layout,
@@ -17,5 +20,8 @@ export {
     Errors,
     Flash,
     Header,
-    Section
+    Section,
+    Table,
+    Row,
+    Cell
 }

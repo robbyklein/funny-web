@@ -1,0 +1,109 @@
+.cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+    display: flex;
+    padding: 15px;
+    font-size: 14px;
+
+    .head & {
+        text-transform: uppercase;
+        color: $black;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 12px;
+    }
+
+    .row:first-of-type & {
+        padding-top: 0;
+    }
+
+    &:first-of-type {
+        padding-left: 0;
+    }
+
+    &:last-of-type {
+        padding-right: 0;
+    }
+
+    &.right {
+        justify-content: flex-end;
+    }
+
+    &.flex {
+        flex: 1;
+    }
+
+    &.xxxs {
+        width: 40px;
+    }
+
+    &.xxs {
+        width: 60px;
+    }
+
+    &.xs {
+        width: 80px;
+    }
+
+    &.s {
+        width: 100px;
+    }
+
+    &.m {
+        width: 120px;
+    }
+
+    &.l {
+        width: 140px;
+    }
+
+    &.xl {
+        width: 160px;
+    }
+
+    &.xxl {
+        width: 180px;
+    }
+
+    &.xxxl {
+        width: 200px;
+    }
+
+    &.small-up {
+        display: none;
+
+        @media (min-width: $smallbp) {
+            display: block;
+        }
+    }
+
+    &.medium-up {
+        display: none;
+
+        @media (min-width: $mediumbp) {
+            display: block;
+        }
+    }
+
+    &.large-up {
+        display: none;
+
+        @media (min-width: $largebp) {
+            display: block;
+        }
+    }
+
+    & + & {
+        border-left: 1px solid $border;
+    }
+
+    a {
+        color: $black;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

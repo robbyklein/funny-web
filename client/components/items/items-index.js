@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
 
-import { Layout, Header, Box, Section } from '../shared'
+import { Layout, Header, Box, Section, Table, Row, Cell } from '../shared'
 import { Pagination } from './'
 import { fetchItems } from '../../actions/items'
 
@@ -17,7 +17,7 @@ class ItemsIndex extends Component {
 
     componentWillReceiveProps(nextProps) {
         const refetch = nextProps.query !== this.props.query
-        
+
         if (refetch) {
             const { page } = queryString.parse(nextProps.query)
             nextProps.fetchItems(page)
@@ -30,11 +30,15 @@ class ItemsIndex extends Component {
 
         return _.map(items, item => {
             return (
-                <div key={item.id} className="item">
-                    <div>{item.published}</div>
-                    <div>{item.tags}</div>
-                    <div>{item.UserId}</div>
-                </div>
+                <Row key={item.id} className="item">
+                    <Cell className="flex">
+                        <Link to={`/admin/items/${item.id}`}>{item.tags.join(', ')}</Link>
+                    </Cell>
+                    <Cell className="xs">{item.UserId}</Cell>
+                    <Cell className="s right">
+                        {item.published ? <i className="fas fa-check" /> : ''}
+                    </Cell>
+                </Row>
             )
         })
     }
@@ -44,11 +48,22 @@ class ItemsIndex extends Component {
             <Layout className="admin" sidebar={true}>
                 <Header>
                     <h2>Items</h2>
-                    <Link className="button xs right" to="/admin/items/new">New Item</Link>
+                    <Link className="button xs right" to="/admin/items/new">
+                        New Item
+                    </Link>
                 </Header>
 
                 <Section>
-                    <Box>{this.renderItems()}</Box>
+                    <Box>
+                        <Table>
+                            <Row className="head">
+                                <Cell className="flex">Tags</Cell>
+                                <Cell className="xs">User</Cell>
+                                <Cell className="s right">Published</Cell>
+                            </Row>
+                            {this.renderItems()}
+                        </Table>
+                    </Box>
 
                     <Pagination />
                 </Section>

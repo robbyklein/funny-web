@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import queryString from 'query-string'
 
-export class Pagination extends Component {    
+export class Pagination extends Component {
     renderNext() {
         const { page, pages } = this.props
         if (page === pages) return ''
-        
+
         const url = `/admin/items?page=${page + 1}`
 
         return (
-            <li><Link to={url}>Next</Link></li>
+            <li className="next">
+                <Link to={url}>Next</Link>
+            </li>
         )
     }
 
@@ -22,7 +24,9 @@ export class Pagination extends Component {
         const url = `/admin/items?page=${page - 1}`
 
         return (
-            <li><Link to={url}>Prev</Link></li>
+            <li>
+                <Link to={url}>Prev</Link>
+            </li>
         )
     }
 
@@ -31,9 +35,8 @@ export class Pagination extends Component {
 
         return (
             <ul className="pagination">
-                {this.renderNext()}
                 {this.renderPrev()}
-
+                {this.renderNext()}
             </ul>
         )
     }

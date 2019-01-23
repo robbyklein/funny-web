@@ -5,7 +5,7 @@ exports.index = async (req, res) => {
     const { page } = req.query
 
     // Paginate by 50
-    const limit = 1
+    const limit = 50
 
     // Calculate offset
     const offset = (page - 1 || 0) * limit
