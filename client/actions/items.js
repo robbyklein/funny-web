@@ -1,5 +1,6 @@
 import axios from './axios'
 import _ from 'lodash'
+import { push } from 'connected-react-router'
 
 import { setErrors } from './errors'
 import { FETCH_ITEMS, FETCH_ITEM, SET_ITEM_TAGS } from './types'
@@ -17,32 +18,26 @@ export const fetchItems = (page = 1) => {
             const { pages } = res.data
 
             // Put it in state
-            dispatch({
-                type: FETCH_ITEMS,
-                payload: { items, pages },
-            })
+            dispatch({ type: FETCH_ITEMS, payload: { items, pages } })
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
         }
     }
 }
 
-export const fetchItem = (id) => {
+export const fetchItem = id => {
     return async function(dispatch) {
         const url = `/admin-items/${id}`
 
         try {
-            // Fetch items
+            // Fetch item
             const res = await axios.get(url)
 
-            // Process data
+            // Extract item from response
             const { item } = res.data
 
             // Put it in state
-            dispatch({
-                type: FETCH_ITEM,
-                payload: item,
-            })
+            dispatch({ type: FETCH_ITEM, payload: item })
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
         }
@@ -55,6 +50,7 @@ export const setItemTags = payload => {
 
 export const createItem = () => {
     return async function(dispatch, getState) {
+        // Comma separated values to array
         const tagsString = getState().items.tags
         const tags = tagsString
             .trim()
@@ -62,31 +58,32 @@ export const createItem = () => {
             .match(/[^,\s][^\,]*[^,\s]*/g)
 
         try {
-            // Fetch items
+            // POST item to server
             const res = await axios.post('/items', { tags })
 
-            // Process data
-            console.log(res.data)
+            // Redirect to index
+            dispatch(push('/admin/items'))
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
         }
     }
 }
 
-export const editItem = (id) => {
+export const editItem = id => {
     return async function(dispatch, getState) {
+        // Comma separated
         const tagsString = getState().items.tags
-
-        console.log(tagsString)
-
         const tags = tagsString
             .trim()
             .replace(/ +(?= )/g, '')
             .match(/[^,\s][^\,]*[^,\s]*/g)
 
         try {
-            // Fetch items
+            // Update item
             const res = await axios.put(`/items/${id}`, { tags })
+
+            // Redirect to index
+            dispatch(push('/admin/items'))
         } catch (e) {
             dispatch(setErrors(['Invalid credentials.']))
         }
