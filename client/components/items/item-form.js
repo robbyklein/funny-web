@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { Field } from '../shared'
-import { setItemTags, fetchItem } from '../../actions/items'
+import { setItemTags, fetchItem, setItemPublished } from '../../actions/items'
 import { selectItem } from '../../reducers/items'
 
 export class ItemForm extends Component {
@@ -13,16 +13,25 @@ export class ItemForm extends Component {
     }
 
     render() {
-        const { tags, setItemTags } = this.props
+        const { tags, setItemTags, published, setItemPublished } = this.props
 
         return (
-            <Field
-                onChange={setItemTags}
-                value={tags}
-                type="text"
-                label="Tags (Comma separated)"
-                id="tags"
-            />
+            <Fragment>
+                <Field
+                    onChange={setItemTags}
+                    value={tags}
+                    type="text"
+                    label="Tags (Comma separated)"
+                    id="tags"
+                />
+                <Field
+                    onChange={setItemPublished}
+                    value={published}
+                    type="checkbox"
+                    label="Published"
+                    id="published"
+                />
+            </Fragment>
         )
     }
 }
@@ -34,12 +43,13 @@ function mapStateToProps({ items }, ownProps) {
         id,
         item: selectItem(items, id),
         tags: items.tags,
+        published: items.published,
     }
 }
 
 export default withRouter(
     connect(
         mapStateToProps,
-        { setItemTags, fetchItem }
+        { setItemTags, fetchItem, setItemPublished }
     )(ItemForm)
 )

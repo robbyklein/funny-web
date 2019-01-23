@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { push } from 'connected-react-router'
 
 import { setErrors } from './errors'
-import { FETCH_ITEMS, FETCH_ITEM, SET_ITEM_TAGS } from './types'
+import { FETCH_ITEMS, FETCH_ITEM, SET_ITEM_TAGS, SET_ITEM_PUBLISHED } from './types'
 
 export const fetchItems = (page = 1) => {
     return async function(dispatch) {
@@ -44,14 +44,15 @@ export const fetchItem = id => {
     }
 }
 
-export const setItemTags = payload => {
-    return { type: SET_ITEM_TAGS, payload }
-}
-
 export const createItem = () => {
     return async function(dispatch, getState) {
+        const {
+            items,
+            items: { published },
+        } = getState()
+
         // Comma separated values to array
-        const tagsString = getState().items.tags
+        const tagsString = items.tags
         const tags = tagsString
             .trim()
             .replace(/ +(?= )/g, '')
@@ -59,7 +60,7 @@ export const createItem = () => {
 
         try {
             // POST item to server
-            const res = await axios.post('/items', { tags })
+            const res = await axios.post('/items', { tags, published })
 
             // Redirect to index
             dispatch(push('/admin/items'))
@@ -88,4 +89,12 @@ export const editItem = id => {
             dispatch(setErrors(['Invalid credentials.']))
         }
     }
+}
+
+export const setItemTags = payload => {
+    return { type: SET_ITEM_TAGS, payload }
+}
+
+export const setItemPublished = () => {
+    return { type: SET_ITEM_PUBLISHED }
 }

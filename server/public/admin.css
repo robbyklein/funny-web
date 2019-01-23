@@ -180,6 +180,22 @@ body .medium-up {
 .field textarea {
   padding: 15px; }
 
+.field input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  background-image: url("/check.svg");
+  background-position: -100px -100px;
+  background-repeat: no-repeat;
+  background-size: 10px; }
+  .field input[type="checkbox"]:checked {
+    background-position: center center; }
+
 .field.image {
   display: -webkit-box;
   display: -ms-flexbox;

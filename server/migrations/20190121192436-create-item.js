@@ -10,6 +10,11 @@ module.exports = {
             tags: {
                 type: Sequelize.JSON,
             },
+            published: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
+            },
             UserId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,

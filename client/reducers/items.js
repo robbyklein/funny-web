@@ -1,10 +1,11 @@
-import { FETCH_ITEMS, SET_ITEM_TAGS, FETCH_ITEM } from '../actions/types'
+import { FETCH_ITEMS, SET_ITEM_TAGS, FETCH_ITEM, SET_ITEM_PUBLISHED } from '../actions/types'
 import { LOCATION_CHANGE} from 'connected-react-router';
 
 const defaultState = {
     pages: 1,
     items: {},
-    tags: ''
+    tags: '',
+    published: false
 }
 
 export default function(state = defaultState, action) {
@@ -21,6 +22,7 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 tags: action.payload.tags.join(', '),
+                published: action.payload.published,
                 items: {
                     ...state.items,
                     [action.payload.id]: action.payload
@@ -30,6 +32,11 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 tags: action.payload
+            }
+        case SET_ITEM_PUBLISHED:
+            return {
+                ...state,
+                published: !state.published
             }
         default:
             return state

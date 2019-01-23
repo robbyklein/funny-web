@@ -36,6 +36,25 @@
     textarea {
         padding: 15px;
     }
+
+    input[type="checkbox"] {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -2px;
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        border: 1px solid $border;
+        border-radius: $radius;
+        background-image: url('/check.svg');
+        background-position: -100px -100px;
+        background-repeat: no-repeat;
+        background-size: 10px;
+
+        &:checked {
+            background-position: center center;
+        }
+    }
 }
 
 .field.image {

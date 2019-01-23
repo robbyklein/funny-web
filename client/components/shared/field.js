@@ -33,11 +33,23 @@ export default class Field extends Component {
                     </select>
                 </div>
             )
+        } else if (type === 'checkbox') {
+            return (
+                <div className={`field ${type}`}>
+                    <input
+                        id={id}
+                        onChange={this.onChange}
+                        type="checkbox"
+                        value={value}
+                    />
+                    {!label ? '' : <label htmlFor={id}>{label}</label>}
+                </div>
+            )
         }
 
         return (
             <div className={`field ${type}`}>
-                {!label ? '' : <label htmlFor={id}>{label}</label>}
+                {!label ? '' : <label htmlFor={id}>{label}</label>}123
                 <input
                     id={id}
                     type={type}
