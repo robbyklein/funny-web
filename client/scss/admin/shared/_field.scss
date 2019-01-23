@@ -23,7 +23,7 @@
         border: 1px solid $formBorder;
         padding: 0 15px;
         line-height: 50px;
-        
+
         &:focus {
             border-color: $formBorderFocus;
         }
@@ -37,7 +37,7 @@
         padding: 15px;
     }
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
         display: inline-block;
         vertical-align: middle;
         margin-top: -2px;
@@ -46,7 +46,7 @@
         height: 18px;
         border: 1px solid $border;
         border-radius: $radius;
-        background-image: url('/check.svg');
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxwYXRoIGZpbGw9IiNkZDI5MjkiIGQ9Ik0xNzMuODk4IDQzOS40MDRsLTE2Ni40LTE2Ni40Yy05Ljk5Ny05Ljk5Ny05Ljk5Ny0yNi4yMDYgMC0zNi4yMDRsMzYuMjAzLTM2LjIwNGM5Ljk5Ny05Ljk5OCAyNi4yMDctOS45OTggMzYuMjA0IDBMMTkyIDMxMi42OSA0MzIuMDk1IDcyLjU5NmM5Ljk5Ny05Ljk5NyAyNi4yMDctOS45OTcgMzYuMjA0IDBsMzYuMjAzIDM2LjIwNGM5Ljk5NyA5Ljk5NyA5Ljk5NyAyNi4yMDYgMCAzNi4yMDRsLTI5NC40IDI5NC40MDFjLTkuOTk4IDkuOTk3LTI2LjIwNyA5Ljk5Ny0zNi4yMDQtLjAwMXoiPjwvcGF0aD48L3N2Zz4=);
         background-position: -100px -100px;
         background-repeat: no-repeat;
         background-size: 10px;
@@ -93,9 +93,9 @@
         height: 100%;
         line-height: 40px;
         transition: 0.2s opacity;
-    
+
         &:hover {
             opacity: 1;
         }
-    }   
+    }
 }
