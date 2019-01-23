@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.addColumn('Items', 'published', Sequelize.DATE)
+        return queryInterface.addColumn('Items', 'published', Sequelize.BOOLEAN)
     },
 
     down: (queryInterface, Sequelize) => {

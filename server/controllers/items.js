@@ -14,7 +14,7 @@ exports.index = async (req, res) => {
     const order = [['createdAt', 'DESC']]
 
     // If logged in we need unpublished posts too
-    const where = req.user ? {} : { published: { $lt: new Date() } }
+    const where = req.user ? {} : { published: true }
 
     // Fetch the items
     const items = await Item.findAndCountAll({ limit, offset, order, where })
@@ -31,7 +31,7 @@ exports.show = async (req, res) => {
     const { id } = req.params
 
     // If user allow unpublished
-    const where = req.user ? { id } : { id, published: { $lt: new Date() } }
+    const where = req.user ? { id } : { id, published: true }
 
     // Fetch the item
     const item = await Item.findOne({ where })
@@ -42,13 +42,13 @@ exports.show = async (req, res) => {
 
 exports.create = async (req, res) => {
     // Extract attributes from body
-    const { tags } = req.body
+    const { tags, published } = req.body
 
     // Extract UserId from body
     const UserId = req.user.id
 
     // Create the Item
-    const item = await Item.create({ tags, UserId })
+    const item = await Item.create({ tags, UserId, published })
 
     // Send back newly created item
     res.send({ item })
@@ -56,14 +56,14 @@ exports.create = async (req, res) => {
 
 exports.edit = async (req, res) => {
     // Extract attributes from body
-    const { tags } = req.body
+    const { tags, published } = req.body
     const { id } = req.params
 
     // Extract UserId from body
     const UserId = req.user.id
 
     // Find the Item
-    const item = await Item.find({ where: { UserId, id } })
+    const item = await Item.find({ where: { UserId, id, published } })
     
     item.update({ tags })
 
