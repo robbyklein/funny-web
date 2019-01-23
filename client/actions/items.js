@@ -34,7 +34,10 @@ export const setItemTags = payload => {
 export const createItem = () => {
     return async function(dispatch, getState) {
         const tagsString = getState().items.tags
-        const tags = tagsString.match(/[^,\s?]+/g)
+        const tags = tagsString
+            .trim()
+            .replace(/ +(?= )/g, '')
+            .match(/[^,\s][^\,]*[^,\s]*/g)
 
         try {
             // Fetch items
