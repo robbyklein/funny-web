@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import queryString from 'query-string'
 
 export class ItemsPagination extends Component {
     renderNext() {
