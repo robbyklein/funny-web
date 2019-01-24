@@ -10,17 +10,12 @@ import { fetchItems } from '../../actions/items'
 class ItemsIndex extends Component {
     componentDidMount() {
         const { items, fetchItems, page } = this.props
-
-        
-
-        if (_.isEmpty(items)) {
-            fetchItems(page)
-        }
+        if (_.isEmpty(items)) fetchItems(page)
     }
 
     componentWillReceiveProps(nextProps) {
         const refetch = nextProps.page !== this.props.page
-        if (refetch)  nextProps.fetchItems(nextProps.page)
+        if (refetch) nextProps.fetchItems(nextProps.page)
     }
 
     renderItems() {
@@ -30,6 +25,9 @@ class ItemsIndex extends Component {
         return _.map(items, item => {
             return (
                 <Row key={item.id} className="item">
+                    <Cell className="s">
+                        <img className="item-image" src={item.source} />
+                    </Cell>
                     <Cell className="flex">
                         <Link to={`/admin/items/${item.id}`}>{item.tags.join(', ')}</Link>
                     </Cell>
@@ -53,9 +51,10 @@ class ItemsIndex extends Component {
                 </Header>
 
                 <Section>
-                    <Box>
-                        <Table>
+                    <Box className="no-padding">
+                        <Table className="items-table">
                             <Row className="head">
+                                <Cell className="s"></Cell>
                                 <Cell className="flex">Tags</Cell>
                                 <Cell className="xs">User</Cell>
                                 <Cell className="s right">Published</Cell>

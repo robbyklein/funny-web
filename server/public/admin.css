@@ -118,6 +118,8 @@ body .medium-up {
     max-width: 700px; }
   .box.xlarge {
     max-width: 800px; }
+  .box.no-padding {
+    padding: 0; }
 
 .field + .field {
   margin-top: 12px; }
@@ -565,12 +567,6 @@ body .medium-up {
     font-weight: 600;
     letter-spacing: 1px;
     font-size: 12px; }
-  .row:first-of-type .cell {
-    padding-top: 0; }
-  .cell:first-of-type {
-    padding-left: 0; }
-  .cell:last-of-type {
-    padding-right: 0; }
   .cell.right {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
@@ -684,6 +680,15 @@ body .medium-up {
     color: #858585; }
     .auth-bottom a:hover {
       color: #161616; }
+
+.items-table .item-image {
+  width: 70px;
+  height: 70px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 3px; }
 
 .pagination {
   display: -webkit-box;
