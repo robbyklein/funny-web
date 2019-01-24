@@ -19,7 +19,13 @@ exports.index = async (req, res) => {
     const where = req.user ? {} : { published: true }
 
     // Fetch the items
-    const items = await Item.findAndCountAll({ limit, offset, order, where })
+    const items = await Item.findAndCountAll({
+        limit,
+        offset,
+        order,
+        where,
+        attributes: ['id', 'source', 'tags', 'published'],
+    })
 
     // Does another page exist?
     const pages = Math.ceil(items.count / limit)
@@ -81,7 +87,7 @@ exports.edit = async (req, res) => {
     const item = await Item.find({ where: { UserId, id } })
     let updates = { tags: commaArray(tags), published }
 
-    if(!_.isEmpty(req.files)) {
+    if (!_.isEmpty(req.files)) {
         // Update url incase extension changed
         updates.source = `/uploads/items/${req.files.source[0].filename}`
     }
