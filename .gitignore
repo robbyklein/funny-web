@@ -7,3 +7,4 @@ npm-debug.log.*
 theme/config.yml
 Thumbs.db
 .env
+server/public/uploads/items/*
