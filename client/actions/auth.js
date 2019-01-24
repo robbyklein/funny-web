@@ -41,7 +41,7 @@ export const logoutUser = () => {
         dispatch({ type: LOGOUT })
 
         // Redirect to login page
-        dispatch(push('/login'))
+        dispatch(push('/admin/login'))
     }
 }
 

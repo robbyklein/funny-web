@@ -7,8 +7,15 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
+            iid: {
+                allowNull: false,
+                type: Sequelize.STRING,
+            },
             tags: {
                 type: Sequelize.JSON,
+            },
+            source: {
+                type: Sequelize.STRING,
             },
             published: {
                 type: Sequelize.BOOLEAN,

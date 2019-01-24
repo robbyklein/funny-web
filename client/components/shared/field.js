@@ -50,7 +50,7 @@ export default class Field extends Component {
 
         return (
             <div className={`field ${type}`}>
-                {!label ? '' : <label htmlFor={id}>{label}</label>}123
+                {!label ? '' : <label htmlFor={id}>{label}</label>}
                 <input
                     id={id}
                     type={type}

@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt-nodejs')
-const uniqueString = require('unique-string')
 const hashPassword = require('../helpers/hash-password')
 
 module.exports = (sequelize, DataTypes) => {
@@ -20,8 +19,6 @@ module.exports = (sequelize, DataTypes) => {
 
     User.hook('beforeCreate', async (user, options) => {
         const hash = await hashPassword(user.password)
-
-        user.confirmToken = uniqueString()
         user.password = hash
     })
 

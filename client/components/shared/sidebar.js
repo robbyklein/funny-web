@@ -46,7 +46,7 @@ class Sidebar extends Component {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/logout">
+                        <Link to="/admin/logout">
                             <i className="fas fa-sign-out-alt" />
                             Logout
                         </Link>

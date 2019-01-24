@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { Field } from '../shared'
-import { setItemTags, fetchItem, setItemPublished } from '../../actions/items'
+import { setItemTags, fetchItem, setItemPublished, setItemSource } from '../../actions/items'
 import { selectItem } from '../../reducers/items'
 
 export class ItemForm extends Component {
@@ -12,8 +12,12 @@ export class ItemForm extends Component {
         if (id && !item) fetchItem(id)
     }
 
+    asd = (e, a) => {
+        this.props.setItemSource(e.target.files[0])
+    }
+
     render() {
-        const { tags, setItemTags, published, setItemPublished } = this.props
+        const { tags, setItemTags, published, setItemPublished, source, setItemSource } = this.props
 
         return (
             <Fragment>
@@ -31,6 +35,7 @@ export class ItemForm extends Component {
                     label="Published"
                     id="published"
                 />
+                <input id="source" type="file" onChange={this.asd} />
             </Fragment>
         )
     }
@@ -50,6 +55,6 @@ function mapStateToProps({ items }, ownProps) {
 export default withRouter(
     connect(
         mapStateToProps,
-        { setItemTags, fetchItem, setItemPublished }
+        { setItemTags, fetchItem, setItemPublished, setItemSource }
     )(ItemForm)
 )

@@ -1,9 +1,17 @@
 import axios from './axios'
 import _ from 'lodash'
 import { push } from 'connected-react-router'
+import nanoid from 'nanoid'
 
 import { setErrors } from './errors'
-import { FETCH_ITEMS, FETCH_ITEM, SET_ITEM_TAGS, SET_ITEM_PUBLISHED } from './types'
+import { formData } from '../helpers'
+import {
+    FETCH_ITEMS,
+    FETCH_ITEM,
+    SET_ITEM_TAGS,
+    SET_ITEM_PUBLISHED,
+    SET_ITEM_SOURCE,
+} from './types'
 
 export const fetchItems = (page = 1) => {
     return async function(dispatch) {
@@ -46,21 +54,21 @@ export const fetchItem = id => {
 
 export const createItem = () => {
     return async function(dispatch, getState) {
-        const {
-            items,
-            items: { published },
-        } = getState()
+        // Extract off state
+        const { published, tags, source } = getState().items
 
-        // Comma separated values to array
-        const tagsString = items.tags
-        const tags = tagsString
-            .trim()
-            .replace(/ +(?= )/g, '')
-            .match(/[^,\s][^\,]*[^,\s]*/g)
+        // Create a unique string identifier
+        const iid = nanoid()
 
         try {
-            // POST item to server
-            await axios.post('/items', { tags, published })
+            // Required for upload
+            const options = { headers: { 'content-type': 'multipart/form-data' } }
+
+            // Create formdata for multipart
+            const data = formData({ tags, published, iid, source })
+            
+            // Create item
+            await axios.post('/items', data, options)
 
             // Redirect to index
             dispatch(push('/admin/items'))
@@ -72,22 +80,17 @@ export const createItem = () => {
 
 export const editItem = id => {
     return async function(dispatch, getState) {
-        const {
-            items,
-            items: { published },
-        } = getState()
-
-
-        // Comma separated
-        const tagsString = items.tags
-        const tags = tagsString
-            .trim()
-            .replace(/ +(?= )/g, '')
-            .match(/[^,\s][^\,]*[^,\s]*/g)
-
+        const { published, tags, source, iid } = getState().items
+    
         try {
+            // Required for upload
+            const options = { headers: { 'content-type': 'multipart/form-data' } }
+
+            // Create formdata for multipart
+            const data = formData({ tags, published, iid, source })
+
             // Update item
-            const res = await axios.put(`/items/${id}`, { tags, published })
+            const res = await axios.post(`/items/${id}`, data, options)
 
             // Redirect to index
             dispatch(push('/admin/items'))
@@ -103,4 +106,8 @@ export const setItemTags = payload => {
 
 export const setItemPublished = () => {
     return { type: SET_ITEM_PUBLISHED }
+}
+
+export const setItemSource = payload => {
+    return { type: SET_ITEM_SOURCE, payload }
 }

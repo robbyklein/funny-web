@@ -14,7 +14,6 @@ class ItemsIndex extends Component {
         
 
         if (_.isEmpty(items)) {
-            console.log("fetching")
             fetchItems(page)
         }
     }
