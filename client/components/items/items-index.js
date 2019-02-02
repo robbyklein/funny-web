@@ -23,6 +23,7 @@ class ItemsIndex extends Component {
         if (!items) return ''
 
         return _.map(items, item => {
+            console.log(item)
             return (
                 <Row key={item.id} className="item">
                     <Cell className="s">

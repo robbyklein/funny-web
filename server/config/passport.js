@@ -40,11 +40,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
     // Make sure it exists
     if (!user) return done(null, false)
 
-    // Make sure password wasn't changed
-    if (user.passwordReset && payload.iat < user.passwordReset.getTime()) {
-        done(null, false)
-    }
-
     // Success
     done(null, user)
 })

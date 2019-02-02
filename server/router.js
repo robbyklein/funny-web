@@ -10,7 +10,7 @@ const pages = require('./controllers/pages')
 // Auth Middleware
 const reqJwt = passport.authenticate('jwt', { session: false })
 const reqLogin = passport.authenticate('local', { session: false })
-const itemUpload = require('./helpers/item-upload')
+const upload = require('./helpers/item-upload')
 
 // Setup passport
 require('./config/passport')
@@ -25,8 +25,8 @@ module.exports = function(app) {
     app.get('/api/items/:id', items.show)
     app.get('/api/admin-items/:id', reqJwt, items.show)
 
-    app.post('/api/items', reqJwt, itemUpload, items.create)
-    app.post('/api/items/:id', reqJwt, itemUpload, items.edit)
+    app.post('/api/items', reqJwt, upload.array('source', 1), items.create)
+    app.post('/api/items/:id', reqJwt, upload.array('source', 1), items.edit)
     
     app.delete('/api/items/:id', reqJwt, items.delete)
 

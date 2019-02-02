@@ -17,6 +17,9 @@ exports.index = async (req, res) => {
 
     // If logged in we need unpublished posts too
     const where = req.user ? {} : { published: true }
+    
+    let attributes = ['id', 'source', 'published']
+    if (req.user) attributes.push('tags') 
 
     // Fetch the items
     const items = await Item.findAndCountAll({
@@ -24,7 +27,7 @@ exports.index = async (req, res) => {
         offset,
         order,
         where,
-        attributes: ['id', 'source', 'tags', 'published'],
+        attributes,
     })
 
     // Does another page exist?
@@ -60,7 +63,7 @@ exports.create = async (req, res) => {
     const hasUploads = !_.isEmpty(uploads)
 
     // Process source
-    const source = hasUploads ? `/uploads/items/${uploads.source[0].filename}` : null
+    const source = hasUploads ? uploads[0].location : null
 
     // Create the Item
     const item = await Item.create({
@@ -89,7 +92,7 @@ exports.edit = async (req, res) => {
 
     if (!_.isEmpty(req.files)) {
         // Update url incase extension changed
-        updates.source = `/uploads/items/${req.files.source[0].filename}`
+        updates.source = req.files[0].location
     }
 
     // Update it

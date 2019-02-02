@@ -1,24 +1,23 @@
+const aws = require('aws-sdk')
 const multer = require('multer')
+const multerS3 = require('multer-s3')
+const s3 = new aws.S3()
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './server/public/uploads/items')
-    },
-
-    filename: function(req, file, cb) {
-        var originalname = file.originalname
-        var extension = originalname.split('.')
-
-        filename = req.body.iid + '.' + extension[extension.length - 1]
-        cb(null, filename)
-    },
+module.exports = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'robbykapps',
+        acl: 'public-read',
+        metadata: function(req, file, cb) {
+            cb(null, { fieldName: file.fieldname })
+        },
+        key: function(req, file, cb) {
+            var originalname = file.originalname
+            var extension = originalname.split('.')
+    
+            filename = "rfunny/items/" + req.body.iid + '.' + extension[extension.length - 1]
+            cb(null, filename)
+        },
+        
+    }),
 })
-var upload = multer({ storage })
-
-module.exports = upload.fields([
-    {
-        name: 'source',
-        maxCount: 1,
-        storage,
-    },
-])
