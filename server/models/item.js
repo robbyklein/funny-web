@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
         'Item',
         {
             iid: DataTypes.STRING,
-            tags: DataTypes.JSON,
             source: DataTypes.STRING,
             published: DataTypes.BOOLEAN,
             UserId: DataTypes.INTEGER,
@@ -15,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Item.associate = function(models) {
         Item.belongsTo(models.User, { onDelete: 'cascade' })
+        Item.belongsToMany(models.Tag, { through: models.Tagging })
     }
     return Item
 }

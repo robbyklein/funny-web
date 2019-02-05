@@ -1,4 +1,4 @@
-const { Item } = require('../models')
+const { Item, Tag, Tagging } = require('../models')
 const commaArray = require('../helpers/comma-array')
 const _ = require('lodash')
 
@@ -17,12 +17,16 @@ exports.index = async (req, res) => {
 
     // If logged in we need unpublished posts too
     const where = req.user ? {} : { published: true }
-    
+
     let attributes = ['id', 'source', 'published']
-    if (req.user) attributes.push('tags') 
+
+    // Include tags if admin area
+    const include = req.user ? [Tag] : []
 
     // Fetch the items
     const items = await Item.findAndCountAll({
+        include,
+        subQuery: false,
         limit,
         offset,
         order,
@@ -44,8 +48,11 @@ exports.show = async (req, res) => {
     // If user allow unpublished
     const where = req.user ? { id } : { id, published: true }
 
+    // Include tags if admin area
+    const include = req.user ? [Tag] : []
+
     // Fetch the item
-    const item = await Item.findOne({ where })
+    const item = await Item.findOne({ where, include })
 
     // Send back item
     res.send({ item })
@@ -54,6 +61,17 @@ exports.show = async (req, res) => {
 exports.create = async (req, res) => {
     // Extract attributes
     const { tags, published, iid } = req.body
+
+    // Create Tags
+    const tagsArray = _.uniq(commaArray(tags))
+    let tagPromises = []
+
+    _.forEach(tagsArray, tag => {
+        tagPromises.push(Tag.findOrCreate({ where: { title: tag } }))
+    })
+
+    let createdTags = await Promise.all(tagPromises)
+    let tagIds = createdTags.map(tag => tag[0].id)
 
     // Extract UserId
     const UserId = req.user.id
@@ -67,12 +85,14 @@ exports.create = async (req, res) => {
 
     // Create the Item
     const item = await Item.create({
-        tags: commaArray(tags),
         UserId,
         published,
         source,
         iid,
     })
+
+    // Add tags to items
+    item.addTags(tagIds)
 
     // Send back newly created item
     res.send({ item })
@@ -88,15 +108,34 @@ exports.edit = async (req, res) => {
 
     // Find the Item
     const item = await Item.find({ where: { UserId, id } })
-    let updates = { tags: commaArray(tags), published }
+
+    // Update Attributes
+    let updates = { published }
 
     if (!_.isEmpty(req.files)) {
         // Update url incase extension changed
         updates.source = req.files[0].location
     }
 
-    // Update it
-    const updated = await item.update(updates)
+    // Update item, delete taggings
+    let [updated] = await Promise.all([
+        item.update(updates),
+        Tagging.destroy({ where: { ItemId: id } }),
+    ])
+
+    // Create/Find Tags
+    const tagsArray = _.uniq(commaArray(tags))
+    let tagPromises = []
+
+    _.forEach(tagsArray, tag => {
+        tagPromises.push(Tag.findOrCreate({ where: { title: tag } }))
+    })
+
+    let createdTags = await Promise.all(tagPromises)
+    let tagIds = createdTags.map(tag => tag[0].id)
+
+    // Add new taggings
+    item.addTags(tagIds)
 
     // Send it back
     res.send({ item: updated })

@@ -23,7 +23,7 @@ export default function(state = defaultState, action) {
         case FETCH_ITEM:
             return {
                 ...state,
-                tags: action.payload.tags.join(', '),
+                tags: _.map(action.payload.Tags, t => t.title).join(', '),
                 published: action.payload.published,
                 iid: action.payload.iid,
                 items: {

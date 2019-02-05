@@ -1,29 +1,24 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Items', {
+        return queryInterface.createTable('taggings', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            iid: {
-                allowNull: false,
-                type: Sequelize.STRING,
-            },
-            source: {
-                type: Sequelize.STRING,
-            },
-            published: {
-                type: Sequelize.BOOLEAN,
-                allowNull: false,
-                defaultValue: false
-            },
-            UserId: {
+            ItemId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'Users',
+                    model: 'Items',
+                }
+            },
+            TagId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'Tags',
                 },
             },
             createdAt: {
@@ -37,6 +32,6 @@ module.exports = {
         })
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Items')
+        return queryInterface.dropTable('taggings')
     },
 }

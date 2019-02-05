@@ -23,14 +23,15 @@ class ItemsIndex extends Component {
         if (!items) return ''
 
         return _.map(items, item => {
-            console.log(item)
+            const tags = _.map(item.Tags, tag => tag.title)
+
             return (
                 <Row key={item.id} className="item">
                     <Cell className="s">
                         <img className="item-image" src={item.source} />
                     </Cell>
                     <Cell className="flex">
-                        <Link to={`/admin/items/${item.id}`}>{item.tags.join(', ')}</Link>
+                        <Link to={`/admin/items/${item.id}`}>{tags.length ? tags.join(', ') : 'Has no tags'}</Link>
                     </Cell>
                     <Cell className="xs">{item.UserId}</Cell>
                     <Cell className="s right">
