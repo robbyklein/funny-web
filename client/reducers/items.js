@@ -1,5 +1,15 @@
-import { FETCH_ITEMS, SET_ITEM_TAGS, FETCH_ITEM, SET_ITEM_PUBLISHED, SET_ITEM_SOURCE } from '../actions/types'
-import { LOCATION_CHANGE} from 'connected-react-router';
+import {
+    FETCH_ITEMS,
+    SET_ITEM_TAGS,
+    FETCH_ITEM,
+    SET_ITEM_PUBLISHED,
+    SET_ITEM_SOURCE,
+    SET_ITEM_BLOB,
+    SET_ITEM_SRC,
+    SET_ITEM_CROP,
+    SET_ITEM_CROP_IMAGE_URL,
+} from '../actions/types'
+import { LOCATION_CHANGE } from 'connected-react-router'
 
 const defaultState = {
     pages: 1,
@@ -7,7 +17,14 @@ const defaultState = {
     iid: '',
     tags: '',
     published: false,
-    source: null
+    source: null,
+    blob: null,
+    src: null,
+    crop: {
+        x: 0,
+        y: 0,
+    },
+    cropImageUrl: null,
 }
 
 export default function(state = defaultState, action) {
@@ -18,7 +35,7 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 items: action.payload.items,
-                pages: action.payload.pages
+                pages: action.payload.pages,
             }
         case FETCH_ITEM:
             return {
@@ -28,24 +45,44 @@ export default function(state = defaultState, action) {
                 iid: action.payload.iid,
                 items: {
                     ...state.items,
-                    [action.payload.id]: action.payload
-                }
+                    [action.payload.id]: action.payload,
+                },
             }
         case SET_ITEM_TAGS:
             return {
                 ...state,
-                tags: action.payload
+                tags: action.payload,
             }
         case SET_ITEM_PUBLISHED:
             return {
                 ...state,
-                published: !state.published
+                published: !state.published,
             }
         case SET_ITEM_SOURCE:
             return {
                 ...state,
-                source: action.payload
-            }     
+                source: action.payload,
+            }
+        case SET_ITEM_BLOB:
+            return {
+                ...state,
+                blob: action.payload,
+            }
+        case SET_ITEM_SRC:
+            return {
+                ...state,
+                src: action.payload,
+            }
+        case SET_ITEM_CROP:
+            return {
+                ...state,
+                crop: action.payload,
+            }
+        case SET_ITEM_CROP_IMAGE_URL:
+            return {
+                ...state,
+                cropImageUrl: action.payload,
+            }
         default:
             return state
     }

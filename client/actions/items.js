@@ -11,6 +11,10 @@ import {
     SET_ITEM_TAGS,
     SET_ITEM_PUBLISHED,
     SET_ITEM_SOURCE,
+    SET_ITEM_BLOB,
+    SET_ITEM_SRC,
+    SET_ITEM_CROP,
+    SET_ITEM_CROP_IMAGE_URL,
 } from './types'
 
 export const fetchItems = (page = 1) => {
@@ -55,7 +59,7 @@ export const fetchItem = id => {
 export const createItem = () => {
     return async function(dispatch, getState) {
         // Extract off state
-        const { published, tags, source } = getState().items
+        const { published, tags, source, blob } = getState().items
 
         // Create a unique string identifier
         const iid = nanoid()
@@ -65,7 +69,7 @@ export const createItem = () => {
             const options = { headers: { 'content-type': 'multipart/form-data' } }
 
             // Create formdata for multipart
-            const data = formData({ tags, published, iid, source })
+            const data = formData({ tags, published, iid, source: blob ? blob : source })
             
             // Create item
             await axios.post('/items', data, options)
@@ -80,14 +84,14 @@ export const createItem = () => {
 
 export const editItem = id => {
     return async function(dispatch, getState) {
-        const { published, tags, source, iid } = getState().items
+        const { published, tags, source, iid, blob } = getState().items
     
         try {
             // Required for upload
             const options = { headers: { 'content-type': 'multipart/form-data' } }
 
             // Create formdata for multipart
-            const data = formData({ tags, published, iid, source })
+            const data = formData({ tags, published, iid, source: blob ? blob : source })
 
             // Update item
             const res = await axios.post(`/items/${id}`, data, options)
@@ -110,4 +114,20 @@ export const setItemPublished = () => {
 
 export const setItemSource = payload => {
     return { type: SET_ITEM_SOURCE, payload }
+}
+
+export const setItemBlob = payload => {
+    return { type: SET_ITEM_BLOB, payload }
+}
+
+export const setItemSrc = payload => {
+    return { type: SET_ITEM_SRC, payload }
+}
+
+export const setItemCrop = payload => {
+    return { type: SET_ITEM_CROP, payload }
+}
+
+export const setItemCropImageUrl = payload => {
+    return { type: SET_ITEM_CROP_IMAGE_URL, payload }
 }

@@ -14,8 +14,11 @@ module.exports = multer({
         key: function(req, file, cb) {
             var originalname = file.originalname
             var extension = originalname.split('.')
+
+            if (extension[extension.length - 1] = 'blob') extension[extension.length - 1] = 'jpg'
     
             filename = "rfunny/items/" + req.body.iid + '.' + extension[extension.length - 1]
+
             cb(null, filename)
         },
         
