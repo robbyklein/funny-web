@@ -9,3 +9,4 @@ Thumbs.db
 .env
 server/public/uploads/items/*
 server/public/*
+20190205093830-add-users.js
