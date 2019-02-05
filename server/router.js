@@ -6,6 +6,7 @@ const path = require('path')
 const auth = require('./controllers/auth')
 const items = require('./controllers/items')
 const pages = require('./controllers/pages')
+const tags = require('./controllers/tags')
 
 // Auth Middleware
 const reqJwt = passport.authenticate('jwt', { session: false })
@@ -21,6 +22,8 @@ module.exports = function(app) {
 
     // Items
     app.get('/api/items', items.index)
+    app.get('/api/items/tag/:id/page/:page', tags.index)
+
     app.get('/api/admin-items', reqJwt, items.index)
     app.get('/api/items/:id', items.show)
     app.get('/api/admin-items/:id', reqJwt, items.show)
