@@ -5,8 +5,8 @@ import { push } from 'connected-react-router'
 export default ChildComponent => {
     class ComposedComponent extends Component {
         shouldNavigateAway() {
-            const { auth, role, push } = this.props
-            if (!auth || role < 99) push('/admin/login')
+            const { auth, admin, push } = this.props
+            if (!auth || !admin) push('/admin/login')
         }
 
         // Our component just got rendered
@@ -24,8 +24,8 @@ export default ChildComponent => {
         }
     }
 
-    function mapStateToProps({ auth: { auth, role } }) {
-        return { auth, role }
+    function mapStateToProps({ auth: { auth, admin } }) {
+        return { auth, admin }
     }
 
     return connect(mapStateToProps, { push })(ComposedComponent)

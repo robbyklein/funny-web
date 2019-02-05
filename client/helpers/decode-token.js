@@ -5,7 +5,7 @@ export default auth => {
 
     return {
         auth,
-        role: decoded.sub.role,
+        admin: decoded.sub.admin,
         name: decoded.sub.name,
         email: decoded.sub.email,
     }

@@ -33,8 +33,8 @@ class ItemsIndex extends Component {
                     <Cell className="flex">
                         <Link to={`/admin/items/${item.id}`}>{tags.length ? tags.join(', ') : 'Has no tags'}</Link>
                     </Cell>
-                    <Cell className="xs">{item.UserId}</Cell>
-                    <Cell className="s right">
+                    <Cell className="m medium-up">{item.User.name}</Cell>
+                    <Cell className="xxs right">
                         {item.published ? <i className="fas fa-check" /> : ''}
                     </Cell>
                 </Row>
@@ -58,8 +58,8 @@ class ItemsIndex extends Component {
                             <Row className="head">
                                 <Cell className="s"></Cell>
                                 <Cell className="flex">Tags</Cell>
-                                <Cell className="xs">User</Cell>
-                                <Cell className="s right">Published</Cell>
+                                <Cell className="m medium-up">User</Cell>
+                                <Cell className="xxs right">Live</Cell>
                             </Row>
                             {this.renderItems()}
                         </Table>

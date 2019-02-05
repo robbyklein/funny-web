@@ -1,4 +1,4 @@
-const { Item, Tag, Tagging } = require('../models')
+const { Item, Tag, Tagging, User } = require('../models')
 const commaArray = require('../helpers/comma-array')
 const _ = require('lodash')
 
@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
     let attributes = ['id', 'source', 'published']
 
     // Include tags if admin area
-    const include = req.user ? [Tag] : []
+    const include = req.user ? [Tag, User] : []
 
     // Fetch the items
     const items = await Item.findAndCountAll({
@@ -73,8 +73,9 @@ exports.create = async (req, res) => {
     let createdTags = await Promise.all(tagPromises)
     let tagIds = createdTags.map(tag => tag[0].id)
 
-    // Extract UserId
+    // Extract UserId/Admin status
     const UserId = req.user.id
+    const { admin } = req.user
 
     // Extract images
     const uploads = req.files
@@ -86,7 +87,7 @@ exports.create = async (req, res) => {
     // Create the Item
     const item = await Item.create({
         UserId,
-        published,
+        published: admin ? published : false, // only admin can publish
         source,
         iid,
     })
@@ -100,7 +101,7 @@ exports.create = async (req, res) => {
 
 exports.edit = async (req, res) => {
     // Extract attributes
-    const { tags, published } = req.body
+    const { published, tags } = req.body
 
     // Extract ids
     const { id } = req.params
@@ -110,7 +111,8 @@ exports.edit = async (req, res) => {
     const item = await Item.find({ where: { UserId, id } })
 
     // Update Attributes
-    let updates = { published }
+    let updates = {}
+    if (req.user.admin) updates.published = published
 
     if (!_.isEmpty(req.files)) {
         // Update url incase extension changed

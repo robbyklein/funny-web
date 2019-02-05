@@ -10,6 +10,10 @@
         color: $gray;
         display: inline-block;
         margin-bottom: 3px;
+
+        &.button {
+            color: $white;
+        }
     }
 
     input[type='text'],

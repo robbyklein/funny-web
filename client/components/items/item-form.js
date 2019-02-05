@@ -12,7 +12,7 @@ import {
     setItemBlob,
     setItemCrop,
     setItemSrc,
-    setItemCropImageUrl
+    setItemCropImageUrl,
 } from '../../actions/items'
 import { selectItem } from '../../reducers/items'
 
@@ -50,7 +50,7 @@ export class ItemForm extends Component {
                 pixelCrop,
                 'newFile.jpeg'
             )
-            
+
             this.props.setItemCropImageUrl(croppedImageUrl)
         }
     }
@@ -90,8 +90,8 @@ export class ItemForm extends Component {
     }
 
     render() {
-        const { tags, setItemTags, published, setItemPublished } = this.props
-        const { crop, cropImageUrl, src } = this.props
+        const { tags, setItemTags, published, setItemPublished, id } = this.props
+        const { crop, cropImageUrl, src, admin, item } = this.props
 
         return (
             <Fragment>
@@ -102,18 +102,36 @@ export class ItemForm extends Component {
                     label="Tags (Comma separated)"
                     id="tags"
                 />
-                <Field
+
+                {admin && (<Field
                     onChange={setItemPublished}
                     value={published}
                     type="checkbox"
                     label="Published"
                     id="published"
-                />
+                />)}
 
-                <input id="source" type="file" onChange={this.onSelectFile} />
+                <div className="field">
+                    <input className="hide" id="source" type="file" onChange={this.onSelectFile} />
+                    <label htmlFor="source" className="button">Select Image</label>
+                </div>
 
-                <div>
-                    {src && (
+                {item && item.source && !src && (
+                    <div className="field">
+                        <div>
+                            <label>Current Image</label>
+                        </div>
+                        <img src={item.source} />
+                    </div>
+                    
+                )}
+
+
+                {src && (
+                    <div className="field">
+                        <div>
+                            <label>Image Preview / Cropper</label>
+                        </div>
                         <ReactCrop
                             src={src}
                             crop={crop}
@@ -121,27 +139,34 @@ export class ItemForm extends Component {
                             onComplete={this.onCropComplete}
                             onChange={this.onCropChange}
                         />
-                    )}
-                </div>
+                    </div>
+                )}
+
                 {cropImageUrl && (
-                    <img alt="Crop" style={{ maxWidth: '100%' }} src={cropImageUrl} />
+                    <div className="field">
+                        <div>
+                            <label>Image Crop Preview</label>
+                        </div>
+                        <img alt="Crop" style={{ maxWidth: '100%' }} src={cropImageUrl} />
+                    </div>
                 )}
             </Fragment>
         )
     }
 }
 
-function mapStateToProps({ items }, ownProps) {
+function mapStateToProps({ items, auth }, ownProps) {
     const { id } = ownProps.match.params
 
     return {
+        admin: auth.admin,
         id,
         item: selectItem(items, id),
         tags: items.tags,
         published: items.published,
-        crop: items.crop, 
-        cropImageUrl: items.cropImageUrl, 
-        src: items.src
+        crop: items.crop,
+        cropImageUrl: items.cropImageUrl,
+        src: items.src,
     }
 }
 
@@ -156,7 +181,7 @@ export default withRouter(
             setItemBlob,
             setItemCrop,
             setItemSrc,
-            setItemCropImageUrl
+            setItemCropImageUrl,
         }
     )(ItemForm)
 )

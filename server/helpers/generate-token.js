@@ -3,7 +3,7 @@ const jwt = require('jwt-simple')
 module.exports = user => {
     const sub = {
         id: user.id,
-        role: user.role,
+        admin: user.admin,
         name: user.name,
         email: user.email,
     }

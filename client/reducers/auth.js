@@ -23,7 +23,7 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 auth: action.payload.auth,
-                role: action.payload.role,
+                admin: action.payload.admin,
                 name: action.payload.name,
                 email: action.payload.email,
             }
