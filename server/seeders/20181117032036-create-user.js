@@ -4,8 +4,8 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         await User.create({
             name: 'Robby',
-            email: 'admin@gmail.com',
-            password: 'password',
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASS,
         })
 
         return

@@ -56,6 +56,7 @@
     "build": "webpack -p",
     "server": "node ./server/index.js",
     "refresh": "sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
+    "prod-refresh": "sequelize db:drop --env production && sequelize db:create --env production && sequelize db:migrate --env production && sequelize db:seed:all --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
