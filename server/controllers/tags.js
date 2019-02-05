@@ -1,6 +1,5 @@
-const { Item, Tag, Tagging } = require('../models')
+const { Tag, Tagging } = require('../models')
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 const _ = require('lodash')
 
 exports.index = async (req, res) => {
