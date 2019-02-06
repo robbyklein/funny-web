@@ -105,10 +105,9 @@ exports.edit = async (req, res) => {
 
     // Extract ids
     const { id } = req.params
-    const UserId = req.user.id
 
     // Find the Item
-    const item = await Item.find({ where: { UserId, id } })
+    const item = await Item.find({ where: { id } })
 
     // Update Attributes
     let updates = {}

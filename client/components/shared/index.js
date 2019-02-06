@@ -10,9 +10,10 @@ import Section from './section'
 import Table from './table'
 import Row from './row'
 import Cell from './cell'
+import Imgc from './imgc'
 
 export {
-    Layout,
+    Layout, 
     Sidebar,
     Box,
     Field,
@@ -23,5 +24,6 @@ export {
     Section,
     Table,
     Row,
-    Cell
+    Cell,
+    Imgc
 }

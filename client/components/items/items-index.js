@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import _ from 'lodash'
 
-import { Layout, Header, Box, Section, Table, Row, Cell } from '../shared'
+import { Layout, Header, Box, Section, Table, Row, Cell, Imgc } from '../shared'
 import { ItemsPagination } from './'
 import { fetchItems } from '../../actions/items'
 
@@ -28,7 +28,7 @@ class ItemsIndex extends Component {
             return (
                 <Row key={item.id} className="item">
                     <Cell className="s">
-                        <img className="item-image" src={item.source} />
+                        <Imgc className="item-image" src={item.source} />
                     </Cell>
                     <Cell className="flex">
                         <Link to={`/admin/items/${item.id}`}>{tags.length ? tags.join(', ') : 'Has no tags'}</Link>
