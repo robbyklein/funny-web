@@ -22,7 +22,7 @@ class Sidebar extends Component {
         return (
             <div className={`sidebar ${this.state.open ? 'nav-active' : ''}`}>
                 <h1 className="logo">
-                    <Link to="/"><Logo width={140} light={true} /></Link>
+                    <Link to="/dashboard"><Logo width={140} light={true} /></Link>
                 </h1>
 
                 <button onClick={this.toggle} className="hamburger">

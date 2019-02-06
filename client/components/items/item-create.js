@@ -12,6 +12,8 @@ export class ItemCreate extends Component {
     }
 
     render() {
+        const { saving } = this.props
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <Layout className="admin" sidebar={true}>
@@ -20,8 +22,9 @@ export class ItemCreate extends Component {
                         <button
                             type="submit"
                             className="button xs right"
+                            disabled={saving}
                         >
-                            Save
+                            {saving ? 'Saving...' : 'Save'}
                         </button>
                     </Header>
 
@@ -36,7 +39,11 @@ export class ItemCreate extends Component {
     }
 }
 
+function mapStateToProps({items}) {
+    return { saving: items.saving }
+}
+
 export default connect(
-    null,
+    mapStateToProps,
     { createItem }
 )(ItemCreate)

@@ -8,6 +8,7 @@ import {
     SET_ITEM_SRC,
     SET_ITEM_CROP,
     SET_ITEM_CROP_IMAGE_URL,
+    SET_ITEM_SAVING,
 } from '../actions/types'
 import { LOCATION_CHANGE } from 'connected-react-router'
 
@@ -25,6 +26,7 @@ const defaultState = {
         y: 0,
     },
     cropImageUrl: null,
+    saving: false
 }
 
 export default function(state = defaultState, action) {
@@ -82,6 +84,11 @@ export default function(state = defaultState, action) {
             return {
                 ...state,
                 cropImageUrl: action.payload,
+            }
+        case SET_ITEM_SAVING:
+            return {
+                ...state,
+                saving: action.payload,
             }
         default:
             return state

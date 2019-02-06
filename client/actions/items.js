@@ -15,6 +15,7 @@ import {
     SET_ITEM_SRC,
     SET_ITEM_CROP,
     SET_ITEM_CROP_IMAGE_URL,
+    SET_ITEM_SAVING,
 } from './types'
 
 export const fetchItems = (page = 1) => {
@@ -58,6 +59,9 @@ export const fetchItem = id => {
 
 export const createItem = () => {
     return async function(dispatch, getState) {
+        // Disable button
+        dispatch(setItemSaving(true))
+
         // Extract off state
         const { published, tags, source, blob } = getState().items
 
@@ -84,6 +88,8 @@ export const createItem = () => {
 
 export const editItem = id => {
     return async function(dispatch, getState) {
+        dispatch(setItemSaving(true))
+
         const { published, tags, source, iid, blob } = getState().items
     
         try {
@@ -130,4 +136,8 @@ export const setItemCrop = payload => {
 
 export const setItemCropImageUrl = payload => {
     return { type: SET_ITEM_CROP_IMAGE_URL, payload }
+}
+
+export const setItemSaving = payload => {
+    return { type: SET_ITEM_SAVING, payload }
 }

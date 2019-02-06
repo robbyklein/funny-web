@@ -86,12 +86,10 @@
     & + & {
         border-left: 1px solid $border;
     }
+}
 
-    a {
-        color: $black;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+.cell-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }

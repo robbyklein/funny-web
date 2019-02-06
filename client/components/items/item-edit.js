@@ -14,13 +14,19 @@ export class ItemEdit extends Component {
     }
 
     render() {
+        const { saving } = this.props
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <Layout className="admin" sidebar={true}>
                     <Header>
                         <h2>Edit Item</h2>
-                        <button type="submit" className="button xs right">
-                            Save
+                        <button
+                            type="submit"
+                            className="button xs right"
+                            disabled={saving}
+                        >
+                            {saving ? 'Saving...' : 'Save'}
                         </button>
                     </Header>
 
@@ -35,9 +41,13 @@ export class ItemEdit extends Component {
     }
 }
 
+function mapStateToProps({items}) {
+    return { saving: items.saving }
+}
+
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         { editItem }
     )(ItemEdit)
 )

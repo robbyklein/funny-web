@@ -112,7 +112,7 @@ export class ItemForm extends Component {
                 />)}
 
                 <div className="field">
-                    <input className="hide" id="source" type="file" onChange={this.onSelectFile} />
+                    <input className="hide" id="source" type="file" accept=".jpg,.png,.jpeg" onChange={this.onSelectFile} />
                     <label htmlFor="source" className="button">Select Image</label>
                 </div>
 

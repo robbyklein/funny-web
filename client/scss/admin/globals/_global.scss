@@ -9,7 +9,7 @@ body {
     font-weight: normal;
     line-height: 1.6;
     font-family: $font;
-    color: $gray;
+    color: $black;
     background: $grayBg;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -115,5 +115,27 @@ body .medium-up {
 
     @media (min-width: $mediumbp) {
         display: block;
+    }
+}
+
+.standard-list {
+    margin: 20px;
+
+    li {
+        list-style: disc;
+        color: $black;
+    }
+
+    li + li {
+        margin-top: 10px;
+    }
+}
+
+a {
+    color: $red;
+    font-weight: 500;
+
+    &:hover {
+        color: $black;
     }
 }
