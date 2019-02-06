@@ -21,17 +21,17 @@ exports.index = async (req, res) => {
     let attributes = ['id', 'source', 'published']
 
     // Include tags if admin area
-    const include = req.user ? [Tag, User] : []
+    const include = req.user ? [User] : []
 
     // Fetch the items
     const items = await Item.findAndCountAll({
-        include,
         subQuery: false,
         limit,
         offset,
         order,
         where,
         attributes,
+        include
     })
 
     // Does another page exist?
