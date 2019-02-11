@@ -3,6 +3,11 @@ const Sequelize = require('sequelize')
 const _ = require('lodash')
 
 exports.index = async (req, res) => {
+    const tags = await Tag.findAll({ attributes: ['id', 'title'], order: [['createdAt', 'DESC']] })
+    res.send({ tags })
+}
+
+exports.items = async (req, res) => {
     const { id, page } = req.params
 
     // Find the tag

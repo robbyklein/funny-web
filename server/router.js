@@ -22,16 +22,16 @@ module.exports = function(app) {
 
     // Items
     app.get('/api/items', items.index)
-    app.get('/api/items/tag/:id/page/:page', tags.index)
-
     app.get('/api/admin-items', reqJwt, items.index)
     app.get('/api/items/:id', items.show)
     app.get('/api/admin-items/:id', reqJwt, items.show)
-
     app.post('/api/items', reqJwt, upload.array('source', 1), items.create)
     app.post('/api/items/:id', reqJwt, upload.array('source', 1), items.edit)
-    
     app.delete('/api/items/:id', reqJwt, items.delete)
+
+    // Tags
+    app.get('/api/tags', tags.index)
+    app.get('/api/items/tag/:id/page/:page', tags.items)
 
     // Pages
     app.get('/', pages.index)
